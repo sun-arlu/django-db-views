@@ -3,11 +3,13 @@ Changelogs starts from version 0.1.3
 
 ## Unreleased
 
+- register comments on fields in DBView models
+- fixed removing field comments in views
+
 ## Released
 
 ### [0.1.14]
-- register comments on fields in DBView models
-- fixed removing field comments in views
+- Add ability to set custom dependencies, to cover what is required by query definition
 
 ### [0.1.13]
 - Fix dependency issue (on psycopg) introduced in 0.1.12.
