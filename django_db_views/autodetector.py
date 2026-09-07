@@ -392,7 +392,19 @@ class ViewMigrationAutoDetector(MigrationAutodetector):
         # <START copy paste from MigrationAutodetector>
         field = self.to_state.models[app_label, model_name].get_field(field_name)
         # Adding a field always depends at least on its removal.
-        dependencies = [(app_label, model_name, field_name, False)]
+        # <END of copy paste from MigrationAutodetector>
+        if django.VERSION >= (5, 1):
+            dependencies = [
+                OperationDependency(
+                    app_label,
+                    model_name,
+                    field_name,
+                    OperationDependency.Type.REMOVE,
+                )
+            ]
+        else:
+            dependencies = [(app_label, model_name, field_name, False)]
+        # <START copy paste from MigrationAutodetector>
         # Fields that are foreignkeys/m2ms depend on stuff.
         if field.remote_field and field.remote_field.model:
             dependencies.extend(
